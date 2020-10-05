@@ -14,11 +14,6 @@ ATK = ATK[:-1]
 ATS = Authenticator[3]
 ATS = ATS[:-1]
 
-print(CK)
-print(CS)
-print(ATK)
-print(ATS)
-
 api = twitter.Api(consumer_key=CK,
 consumer_secret=CS,
 access_token_key=ATK,
