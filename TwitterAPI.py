@@ -2,6 +2,7 @@
 import urllib.request, urllib.parse, urllib.error
 import twitter
 import ssl
+from twurl import augment
 
 APIinfo = open("TwitterAPIKey.txt", "r")
 Authenticator = APIinfo.readlines()
@@ -19,4 +20,13 @@ consumer_secret=CS,
 access_token_key=ATK,
 access_token_secret=ATS)
 
-print(api.VerifyCredentials())
+#static start for URL
+url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json', {'screen_name': 'LukeLimpert'})
+
+#print(api.VerifyCredentials())
+
+users = api.GetUserTimeline(screen_name = 'elonmusk')
+
+friends = api.LookupFriendship(screen_name = 'elonmusk')
+
+#Check rate limit
