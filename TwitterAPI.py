@@ -25,8 +25,24 @@ url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json', {'scree
 
 #print(api.VerifyCredentials())
 
+# Ignore SSL certificate errors
+
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+#establish connection
+connection = urllib.request.urlopen(url, context=ctx)
+data= connection.read().decode()
+headers = dict(connection.getheaders())
+# print headers
+print('Remaining', headers['x-rate-limit-remaining'])
+
+
 users = api.GetUserTimeline(screen_name = 'elonmusk')
 
 friends = api.LookupFriendship(screen_name = 'elonmusk')
 
+print(users)
+print(friends)
 #Check rate limit
