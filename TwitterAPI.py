@@ -3,6 +3,8 @@ import urllib.request, urllib.parse, urllib.error
 import twitter
 import ssl
 from twurl import augment
+import json
+
 
 APIinfo = open("TwitterAPIKey.txt", "r")
 Authenticator = APIinfo.readlines()
@@ -21,7 +23,7 @@ access_token_key=ATK,
 access_token_secret=ATS)
 
 #static start for URL
-url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json', {'screen_name': 'LukeLimpert'})
+url = augment('https://api.twitter.com/1.1/statuses/user_timeline.json', {'screen_name': 'elonmusk'})
 
 #print(api.VerifyCredentials())
 
@@ -38,11 +40,18 @@ headers = dict(connection.getheaders())
 # print headers
 print('Remaining', headers['x-rate-limit-remaining'])
 
-
 users = api.GetUserTimeline(screen_name = 'elonmusk')
+js = json.loads(data)
+print(json.dumps(js, indent=4))
+with open("freeplay_data.json", "w") as write_file:
+	json.dump(json.dumps(js, indent=4), write_file)
 
-friends = api.LookupFriendship(screen_name = 'elonmusk')
+for user in users:
+	print(user.text)
 
-print(users)
-print(friends)
+
+
+
+
+
 #Check rate limit
